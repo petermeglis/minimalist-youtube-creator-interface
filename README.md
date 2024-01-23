@@ -7,6 +7,14 @@ Setup:
 - `pip install` the packages from the YouTube API quickstart guide
 - Run `python3 ytcli.py`
 
+Termux Phone Instructions:
+- pkg install python
+- pkg install git
+- git clone to ~
+- pkg update && pkg upgrade
+- termux-setup-storage
+- USB transfer the secrets from git repo on laptop to downloads folder, then transfer in termux from ~/storage/shared
+
 Resources:
 - YouTube API Quickstart Guide: https://developers.google.com/youtube/v3/quickstart/python
 - API docs: https://developers.google.com/youtube/v3/docs/channels/list

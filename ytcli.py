@@ -21,7 +21,7 @@ scopes = ["https://www.googleapis.com/auth/youtube.readonly",
           "https://www.googleapis.com/auth/youtube.force-ssl",
           "https://www.googleapis.com/auth/youtube.upload"]
 
-DEFAULT_UPLOAD_DIR = "~/fs/media/tmp"
+DEFAULT_UPLOAD_DIR = "~/fs/media/upload"
 DEFAULT_UPLOAD_TIME = "17:00:00Z"
 DEFAULT_LOCATION = "Federal Territory of Kuala Lumpur"
 

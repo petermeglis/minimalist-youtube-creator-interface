@@ -142,7 +142,7 @@ def get_video(youtube):
     print(f"Scheduled for: {status.get('publishAt', 'N/A')}")
 
     print(f"Description: {snippet.get('description', 'N/A')}")
-    print(f"Location: {recording_details.get('locationDescription', {}).get('description', 'N/A')}")
+    print(f"Location: {recording_details.get('locationDescription', {})}")
     print(f"Thumbnail: {thumbnail_url}")
 
 def edit_video(youtube):
@@ -174,7 +174,7 @@ def edit_video(youtube):
     print(f"Scheduled for: {status.get('publishAt', 'N/A')}")
 
     print(f"Description: {snippet.get('description', 'N/A')}")
-    print(f"Location: {recording_details.get('locationDescription', {}).get('description', 'N/A')}")
+    print(f"Location: {recording_details.get('locationDescription', {})}")
     print(f"Thumbnail: {thumbnail_url}")
 
     print()

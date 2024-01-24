@@ -23,7 +23,6 @@ scopes = ["https://www.googleapis.com/auth/youtube.readonly",
 
 DEFAULT_UPLOAD_DIR = "~/storage/shared/fs/media/upload"
 DEFAULT_UPLOAD_TIME = "17:00:00Z"
-DEFAULT_LOCATION = "Federal Territory of Kuala Lumpur"
 
 def get_authenticated_service():
     api_service_name = "youtube"
@@ -182,7 +181,6 @@ def edit_video(youtube):
     # Ask for new details
     new_title = input("Enter new title (press enter to keep current): ")
     new_description = input("Enter new description (press enter to keep current): ")
-    new_location = input("Enter new location description (press enter to keep current): ")
 
     new_scheduled_datetime = None
 
@@ -203,9 +201,6 @@ def edit_video(youtube):
 
     thumbnail_path = input("Enter new thumbnail file path (press enter to keep current): ")
 
-
-    print("Updating...")
-
     # Update details if provided
     if new_title:
         snippet["title"] = new_title
@@ -215,32 +210,17 @@ def edit_video(youtube):
         status['publishAt'] = new_scheduled_datetime
 
     # Perform the update
-    update_response = youtube.videos().update(
-        part="snippet,status",
-        body={
-            "id": video_id,
-            "snippet": snippet,
-            "status": status
-        }
-    ).execute()
-
-    # Update location if provided
-    if new_location:
-        recording_details = {"locationDescription": new_location}
-    else:
-        recording_details = None
-
-    # Perform the update
     update_body = {
         "id": video_id,
         "snippet": snippet,
         "status": status
     }
-    if recording_details:
-        update_body["recordingDetails"] = recording_details
 
+    print("Updating...")
+
+    # Perform the update
     update_response = youtube.videos().update(
-        part="snippet,status,recordingDetails",
+        part="snippet,status",
         body=update_body
     ).execute()
 
@@ -251,7 +231,7 @@ def edit_video(youtube):
             media_body=thumbnail_path
         ).execute()
 
-    print(f"Video updated: {update_response['snippet']['title']}")
+    print(f"Video updated {video_id}: {update_response['snippet']['title']}")
 
 def list_unreplied_comments(youtube):
     # Fetch the authenticated user's channel ID
@@ -393,11 +373,6 @@ def upload_video(youtube):
     title = input("Enter video title: ")
     description = input("Enter video description: ")
 
-    # Use default value for location description
-    default_location_description = DEFAULT_LOCATION
-    location_description = input(f"Enter location description (default: {default_location_description}): ").strip()
-    location_description = location_description if location_description else default_location_description
-
     # Ask if the user wants to schedule the video
     schedule_choice = input("Do you want to schedule the video (y/n)? ").strip().lower()
     publish_at = None
@@ -426,10 +401,7 @@ def upload_video(youtube):
         },
         'status': {
             'privacyStatus': 'private',
-            'publishAt': publish_at if publish_at else None
-        },
-        'recordingDetails': {
-            'locationDescription': location_description
+            'publishAt': publish_at
         }
     }
 
@@ -441,7 +413,7 @@ def upload_video(youtube):
 
     # Create a request to insert the video
     request = youtube.videos().insert(
-        part="snippet,status,recordingDetails",
+        part="snippet,status",
         body=body,
         media_body=media_file
     )

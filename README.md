@@ -8,6 +8,8 @@ Setup:
 - Run `python3 ytcli.py`
 
 Termux Phone Instructions:
+- Download F-Droid app repository, then in F-Droid download Termux
+- Then:
 - pkg install python
 - pkg install git
 - git clone to ~
